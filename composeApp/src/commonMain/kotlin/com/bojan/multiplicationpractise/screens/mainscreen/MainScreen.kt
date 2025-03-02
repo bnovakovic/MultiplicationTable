@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.LinearProgressIndicator
@@ -35,13 +37,18 @@ import androidx.compose.ui.unit.dp
 import com.bojan.multiplicationpractise.HorizontalSpacer_s
 import com.bojan.multiplicationpractise.VerticalSpacer_l
 import com.bojan.multiplicationpractise.VerticalSpacer_s
+import com.bojan.multiplicationpractise.VerticalSpacer_xs
 import com.bojan.multiplicationpractise.controls.CircleButton
 import multiplicationpractise.composeapp.generated.resources.Res
 import multiplicationpractise.composeapp.generated.resources.answer_right
 import multiplicationpractise.composeapp.generated.resources.answer_wrong
 import multiplicationpractise.composeapp.generated.resources.correct
 import multiplicationpractise.composeapp.generated.resources.correct_answers
+import multiplicationpractise.composeapp.generated.resources.difficulty
+import multiplicationpractise.composeapp.generated.resources.easy
 import multiplicationpractise.composeapp.generated.resources.footer_text
+import multiplicationpractise.composeapp.generated.resources.hard
+import multiplicationpractise.composeapp.generated.resources.medium
 import multiplicationpractise.composeapp.generated.resources.ok
 import multiplicationpractise.composeapp.generated.resources.restart
 import multiplicationpractise.composeapp.generated.resources.start
@@ -57,13 +64,14 @@ fun MainScreen(
     uiModel: MainScreenUiModel,
     onAnswer: (NumberGridActions) -> Unit,
     onStart: () -> Unit,
-    onRestart: () -> Unit
+    onRestart: () -> Unit,
+    onDifficultySelected: (Difficulty) -> Unit
 ) {
     Box(modifier = Modifier.padding(16.dp).fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(modifier = Modifier.widthIn(max = 500.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Header(uiModel, onRestart)
             VerticalSpacer_l()
-            Info(uiModel, onStart)
+            Info(uiModel, onStart, onDifficultySelected)
             VerticalSpacer_l()
             NumbersGrid(
                 onAction = onAnswer
@@ -78,32 +86,52 @@ fun MainScreen(
 
 @Composable
 fun Header(uiModel: MainScreenUiModel, onRestart: () -> Unit) {
-    Row(modifier = Modifier.height(70.dp), verticalAlignment = Alignment.CenterVertically) {
-        if (uiModel.mainScreenState != MainScreenState.Idle) {
-            Column(modifier = Modifier.weight(1.0f), horizontalAlignment = Alignment.Start) {
-                Text(
-                    text = stringResource(Res.string.correct_answers, uiModel.correctAnswers),
-                    color = MaterialTheme.colors.onSurface,
-                    fontSize = TextUnit(24.0f, TextUnitType.Sp)
-                )
-                Spacer(modifier = Modifier.weight(1.0f))
-                Text(
-                    text = stringResource(Res.string.wrong_answers, uiModel.wrongAnswers),
-                    color = MaterialTheme.colors.onSurface,
-                    fontSize = TextUnit(24.0f, TextUnitType.Sp)
-                )
-            }
-            Row(modifier = Modifier.weight(1.0f), horizontalArrangement = Arrangement.End) {
-                IconButton(onClick = onRestart) {
-                    Icon(imageResource(Res.drawable.restart), contentDescription = null, modifier = Modifier.size(48.dp))
+    Row(modifier = Modifier.height(90.dp), verticalAlignment = Alignment.CenterVertically) {
+        when (uiModel.mainScreenState) {
+            is MainScreenState.Correct,
+            is MainScreenState.Wrong,
+            is MainScreenState.Question,
+            is MainScreenState.TimeOut -> {
+                if (uiModel.mainScreenState != MainScreenState.Idle) {
+                    Column(modifier = Modifier.weight(1.0f), horizontalAlignment = Alignment.Start) {
+                        val difficultyText = when (uiModel.difficulty) {
+                            Difficulty.EASY -> stringResource(Res.string.easy)
+                            Difficulty.MEDIUM -> stringResource(Res.string.medium)
+                            Difficulty.HARD -> stringResource(Res.string.hard)
+                        }
+                        Text(
+                            text = stringResource(Res.string.difficulty, difficultyText),
+                            color = MaterialTheme.colors.onSurface,
+                            fontSize = TextUnit(18.0f, TextUnitType.Sp)
+                        )
+                        VerticalSpacer_xs()
+                        Text(
+                            text = stringResource(Res.string.correct_answers, uiModel.correctAnswers),
+                            color = MaterialTheme.colors.onSurface,
+                            fontSize = TextUnit(18.0f, TextUnitType.Sp)
+                        )
+                        VerticalSpacer_xs()
+                        Text(
+                            text = stringResource(Res.string.wrong_answers, uiModel.wrongAnswers),
+                            color = MaterialTheme.colors.onSurface,
+                            fontSize = TextUnit(18.0f, TextUnitType.Sp)
+                        )
+                    }
+                    Row(modifier = Modifier.weight(1.0f), horizontalArrangement = Arrangement.End) {
+                        IconButton(onClick = onRestart) {
+                            Icon(imageResource(Res.drawable.restart), contentDescription = null, modifier = Modifier.size(48.dp))
+                        }
+                    }
                 }
             }
+
+            else -> {}
         }
     }
 }
 
 @Composable
-fun Info(uiModel: MainScreenUiModel, onStartPlaying: () -> Unit) {
+fun Info(uiModel: MainScreenUiModel, onStartPlaying: () -> Unit, onDifficultySelected: (Difficulty) -> Unit ) {
     val state = uiModel.mainScreenState
 
     Column(
@@ -142,6 +170,31 @@ fun Info(uiModel: MainScreenUiModel, onStartPlaying: () -> Unit) {
                     fontSize = TextUnit(36.0f, TextUnitType.Sp),
                     lineHeight = TextUnit(40.0f, TextUnitType.Sp),
                 )
+            }
+
+            is MainScreenState.ChooseDifficulty -> {
+                Row {
+                    Button(
+                        onClick = { onDifficultySelected(Difficulty.EASY) },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
+                    ) {
+                        Text(text = stringResource(Res.string.easy), color = MaterialTheme.colors.onSecondary)
+                    }
+                    HorizontalSpacer_s()
+                    Button(
+                        onClick = { onDifficultySelected(Difficulty.MEDIUM) },
+                    ) {
+                        Text(text = stringResource(Res.string.medium), color = MaterialTheme.colors.onPrimary)
+                    }
+                    HorizontalSpacer_s()
+                    Button(
+                        onClick = { onDifficultySelected(Difficulty.HARD) },
+                        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                    ) {
+                        Text(text = stringResource(Res.string.hard), color = MaterialTheme.colors.onError)
+                    }
+
+                }
             }
 
             is MainScreenState.Question -> {

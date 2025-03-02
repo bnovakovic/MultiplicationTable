@@ -5,5 +5,6 @@ data class MainScreenUiModel(
     val mainScreenState: MainScreenState,
     val correctAnswers: Int,
     val wrongAnswers: Int,
-    val answerTimeoutProgress: Float
+    val answerTimeoutProgress: Float,
+    val difficulty: Difficulty
 )

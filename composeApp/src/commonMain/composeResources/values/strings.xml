@@ -8,4 +8,8 @@
     <string name="wrong_answers">Wrong: %1$d</string>
     <string name="correct_answers">Correct: %1$d</string>
     <string name="footer_text">For my Boka &lt;3</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="difficulty">Difficulty: %1$s</string>
 </resources>

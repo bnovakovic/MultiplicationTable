@@ -5,7 +5,11 @@
     <string name="correct">Tačno!</string>
     <string name="wrong_answer">Pogrešno! Rezultat je %1$s</string>
     <string name="time_out">Isteklo vreme! Rezultat je %1$d</string>
-    <string name="wrong_answers">Tačnih: %1$d</string>
-    <string name="correct_answers">Netačnih: %1$d</string>
+    <string name="wrong_answers">Netačnih: %1$d</string>
+    <string name="correct_answers">Tačnih: %1$d</string>
     <string name="footer_text">Za moju Boku &lt;3</string>
+    <string name="easy">Lako</string>
+    <string name="medium">Srednje</string>
+    <string name="hard">Teško</string>
+    <string name="difficulty">Težina: %1$s</string>
 </resources>

@@ -16,7 +16,8 @@ class MainScreenViewModel : ViewModel() {
             mainScreenState = MainScreenState.Idle,
             correctAnswers = 0,
             wrongAnswers = 0,
-            answerTimeoutProgress = 0.0f
+            answerTimeoutProgress = 0.0f,
+            difficulty = Difficulty.MEDIUM
         )
     )
     val uiModel = _uiModel.asStateFlow()
@@ -24,6 +25,7 @@ class MainScreenViewModel : ViewModel() {
     private val currentAnswerNumber = mutableListOf<Int>()
     private val questionNumbers = mutableListOf<Int>()
     private var currentJob: Job? = null
+    private var answerTime = ANSWER_TIME_MEDIUM
 
     fun onAction(action: NumberGridActions) {
         val state = _uiModel.value.mainScreenState
@@ -88,7 +90,7 @@ class MainScreenViewModel : ViewModel() {
         val state = _uiModel.value.mainScreenState
 
         if (state == MainScreenState.Idle) {
-            generateRandomQuestion()
+            _uiModel.value = _uiModel.value.copy(mainScreenState = MainScreenState.ChooseDifficulty)
         }
     }
 
@@ -101,8 +103,19 @@ class MainScreenViewModel : ViewModel() {
             mainScreenState = MainScreenState.Idle,
             correctAnswers = 0,
             wrongAnswers = 0,
-            answerTimeoutProgress = 0.0f
+            answerTimeoutProgress = 0.0f,
+            difficulty = Difficulty.MEDIUM
         )
+    }
+
+    fun difficultySelected(difficulty: Difficulty) {
+        answerTime = when(difficulty) {
+            Difficulty.EASY -> ANSWER_TIME_EASY
+            Difficulty.MEDIUM -> ANSWER_TIME_MEDIUM
+            Difficulty.HARD -> ANSWER_TIME_HARD
+        }
+        _uiModel.value = _uiModel.value.copy(difficulty = difficulty)
+        generateRandomQuestion()
     }
 
     private fun checkAnswer() {
@@ -173,7 +186,7 @@ class MainScreenViewModel : ViewModel() {
         currentJob?.cancel()
         currentJob = viewModelScope.launch {
             val steps = 100
-            val interval = (ANSWER_TIME - 1000) / steps // -1000 is because this code always adds one second to delay. Too lazy to fix it now. xD
+            val interval = (answerTime - 1000) / steps // -1000 is because this code always adds one second to delay. Too lazy to fix it now. xD
             var progress: Float
 
             for (i in 0 until steps + 1) {
@@ -196,7 +209,9 @@ class MainScreenViewModel : ViewModel() {
         const val MAX_ANSWER_NUMBERS = 4
         const val WRONG_ANSWER_DELAY = 2000L
         const val CORRECT_ANSWER_DELAY = 1000L
-        const val ANSWER_TIME = 10000L
+        const val ANSWER_TIME_EASY = 20000L
+        const val ANSWER_TIME_MEDIUM = 10000L
+        const val ANSWER_TIME_HARD = 5000L
         val NUMBERS_TO_MULTIPLY = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
     }
 

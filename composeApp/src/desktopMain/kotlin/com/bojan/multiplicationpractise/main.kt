@@ -9,7 +9,6 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import multiplicationpractise.composeapp.generated.resources.Res
 import multiplicationpractise.composeapp.generated.resources.app_name
-import multiplicationpractise.composeapp.generated.resources.ok
 import org.jetbrains.compose.resources.stringResource
 
 fun main() = application {
