@@ -9,7 +9,7 @@ To build and run the project, follow these steps:
 3. Build the project and run the application on your desired platform using green play button in your IDE. If that does not work, you can use `./gradlew run` gradle task to to run the project, or use gradle task list `Tasks->compose desktop->run`.
 
 ## Contributing
-If you would like to contribute to the project, either create the pull request, or contact me in the issues section. If you decide to create pull request, please make sure to follow S.O.L.I.D. and Clean Architecture principles.
+If you would like to contribute to the project, either create the pull request, or contact me in the issues section. If you decide to create pull request, please make sure to follow MVVM principles.
 **Contact** me by opening an issue before spending a lots of time on big PR's just to make sure we are on the same page for the big new feature.
 
 ## License
