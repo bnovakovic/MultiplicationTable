@@ -200,7 +200,8 @@ class MainScreenViewModel : ViewModel() {
             }
 
             val solution = questionNumbers.fold(1) { accumulator, number -> accumulator * number }
-            _uiModel.value = _uiModel.value.copy(mainScreenState = MainScreenState.TimeOut(solution))
+            val wrongAnswers = _uiModel.value.wrongAnswers
+            _uiModel.value = _uiModel.value.copy(mainScreenState = MainScreenState.TimeOut(solution), wrongAnswers = wrongAnswers + 1)
             scheduleNewAnswer(WRONG_ANSWER_DELAY)
         }
     }
