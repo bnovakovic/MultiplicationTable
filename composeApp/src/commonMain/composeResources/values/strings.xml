@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Multiplication Table</string>
+    <string name="start">START</string>
+    <string name="ok">OK</string>
+    <string name="correct">Correct!</string>
+    <string name="wrong_answer">Wrong! Correct answer is %1$s</string>
+    <string name="time_out">Time out! Answer: %1$d</string>
+    <string name="wrong_answers">Wrong: %1$d</string>
+    <string name="correct_answers">Correct: %1$d</string>
+    <string name="footer_text">For my Boka &lt;3</string>
+</resources>
