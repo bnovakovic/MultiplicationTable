@@ -1,21 +1,19 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+This project is a Kotlin Multiplatform application designed to target multiple platforms, including Android, iOS, Web, and Desktop. The application serves as a straightforward multiplication table tool aimed at facilitating the learning of multiplication for numbers ranging from 1 to 10. It features three distinct difficulty settings and includes functionality for tracking user scores.
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+![App_Screen](Documentation/Images/app_screenshot.png)
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+## Getting Started
+To build and run the project, follow these steps:
+1. Clone the repository.
+2. Open the project in Android Studio or your preferred IDE.
+3. Build the project and run the application on your desired platform using green play button in your IDE. If that does not work, you can use `./gradlew run` gradle task to to run the project, or use gradle task list `Tasks->compose desktop->run`.
 
+## Contributing
+If you would like to contribute to the project, either create the pull request, or contact me in the issues section. If you decide to create pull request, please make sure to follow S.O.L.I.D. and Clean Architecture principles.
+**Contact** me by opening an issue before spending a lots of time on big PR's just to make sure we are on the same page for the big new feature.
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+## License
+This project is licensed under the [Apache-2.0 license](LICENSE).
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
-
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+## Contact
+For any questions or support, please contact me using issues in this repository.
