@@ -67,7 +67,7 @@ fun MainScreen(
     onRestart: () -> Unit,
     onDifficultySelected: (Difficulty) -> Unit
 ) {
-    Box(modifier = Modifier.padding(16.dp).fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(modifier = Modifier.background(MaterialTheme.colors.surface).padding(16.dp).fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(modifier = Modifier.widthIn(max = 500.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             Header(uiModel, onRestart)
             VerticalSpacer_l()

@@ -1,6 +1,9 @@
 package com.bojan.multiplicationpractise
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,7 +15,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
-    MaterialTheme {
+    MaterialTheme(colors = if (isSystemInDarkTheme()) darkColors() else lightColors()) {
         val viewModel = remember { MainScreenViewModel() }
         val uiState by viewModel.uiModel.collectAsState()
         MainScreen(
