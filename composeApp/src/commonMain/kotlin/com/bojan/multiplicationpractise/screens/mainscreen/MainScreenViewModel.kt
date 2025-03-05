@@ -160,8 +160,8 @@ class MainScreenViewModel : ViewModel() {
 
     private fun generateRandomQuestion() {
 
-        val firstNumber = NUMBERS_TO_MULTIPLY[Random.nextInt(0, NUMBERS_TO_MULTIPLY.lastIndex)]
-        val secondNumber = NUMBERS_TO_MULTIPLY[Random.nextInt(0, NUMBERS_TO_MULTIPLY.lastIndex)]
+        val firstNumber = NUMBERS_TO_MULTIPLY[Random.nextInt(0, NUMBERS_TO_MULTIPLY.size)]
+        val secondNumber = NUMBERS_TO_MULTIPLY[Random.nextInt(0, NUMBERS_TO_MULTIPLY.size)]
         currentAnswerNumber.clear()
         questionNumbers.clear()
 
