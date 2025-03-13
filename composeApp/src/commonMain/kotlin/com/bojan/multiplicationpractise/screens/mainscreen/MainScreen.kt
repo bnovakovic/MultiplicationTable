@@ -119,7 +119,12 @@ fun Header(uiModel: MainScreenUiModel, onRestart: () -> Unit) {
                     }
                     Row(modifier = Modifier.weight(1.0f), horizontalArrangement = Arrangement.End) {
                         IconButton(onClick = onRestart) {
-                            Icon(imageResource(Res.drawable.restart), contentDescription = null, modifier = Modifier.size(48.dp))
+                            Icon(
+                                bitmap = imageResource(Res.drawable.restart),
+                                contentDescription = null,
+                                modifier = Modifier.size(48.dp),
+                                tint = MaterialTheme.colors.onSurface
+                            )
                         }
                     }
                 }
